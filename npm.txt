@@ -1,0 +1,9 @@
+npm install react-router-dom
+npm install react-icons
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+npm install --save zod
+npm install @hookform/resolvers
+npm install react-hot-toast
+npm install firebase 
+npm install swiper
