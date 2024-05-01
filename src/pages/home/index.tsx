@@ -15,6 +15,7 @@ export interface CarsProps {
   city: string;
   km: string;
   image: CarImageProps[];
+  cambio: string;
 }
 
 export interface CarImageProps {
@@ -97,6 +98,7 @@ export function Home() {
           city: doc.data().city,
           km: doc.data().km,
           image: doc.data().images,
+          cambio: doc.data().cambio,
         });
       });
 
@@ -189,6 +191,7 @@ export function Home() {
         city: doc.data().city,
         km: doc.data().km,
         image: doc.data().images,
+        cambio: doc.data().cambio,
       });
     });
     setCars(listCars);
@@ -252,8 +255,11 @@ export function Home() {
                 </Link>
                 <p className="font-bold mb-2 mt-1 px-2">{car.name}</p>
                 <div className="flex flex-col px-2">
-                  <span className="text-zinc-700 mb-6">
+                  <span className="text-zinc-700 mb-2">
                     Ano {car.year} | {car.km}
+                  </span>
+                  <span className="mb-4 text-zinc-700">
+                    {car.cambio}
                   </span>
                   <strong className="text-black font-medium text-xl">
                     {car.price.toLocaleString("pt-BR", {

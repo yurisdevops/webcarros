@@ -11,9 +11,28 @@ import {
   doc,
 } from "firebase/firestore";
 import { db } from "../../services/firebaseConnection";
-import { CarsProps } from "../home";
+
 import { AuthContext } from "../../context/AuthContext";
 import toast from "react-hot-toast";
+
+export interface CarsProps {
+  id: string;
+  uid: string;
+  name: string;
+  model: string;
+  year: number;
+  price: number | string;
+  city: string;
+  km: string;
+  image: CarImageProps[];
+  cambio: string;
+}
+
+interface CarImageProps {
+  name: string;
+  uid: string;
+  url: string;
+}
 
 export function Dashboard() {
   const [cars, setCars] = useState<CarsProps[]>([]); //* Interface importada de home
@@ -27,15 +46,15 @@ export function Dashboard() {
       return;
     }
     loadCars(); //* chamando função
-  }, [user]); //* O id precisa ficar sendo vericado pois os detalhes vão determinados a partir que o id chegar e ou mudar,
+  }, [user]); //* O id precisa ficar sendo verificado pois os detalhes vão determinados a partir que o id chegar e ou mudar,
 
   function loadCars() {
-    const carsRef = collection(db, "cars"); //* acessando a coleção usando o db como refencia de banco de dados e o (cars) como coleção
-    const queryRef = query(carsRef, where("uid", "==", user?.uid)); //* se o uid cadastrado no cars for igual ao que vem do context api user.uid então fica armazenado dentro desta variavel qeuryREf
+    const carsRef = collection(db, "cars"); //* acessando a coleção usando o db como referencia de banco de dados e o (cars) como coleção
+    const queryRef = query(carsRef, where("uid", "==", user?.uid)); //* se o uid cadastrado no cars for igual ao que vem do context api user.uid então fica armazenado dentro desta variavel queryREf
 
     getDocs(queryRef).then((snapshot) => {
       //* usamos o getDocs para pegar esse acesso
-      let listCars = [] as CarsProps[]; //* criamos uma lista de objetos para receber os dados e tipamos como CarsProps pois irá receber a mesma quanitade de itens
+      let listCars = [] as CarsProps[]; //* criamos uma lista de objetos para receber os dados e tipamos como CarsProps pois irá receber a mesma quantidade de itens
 
       snapshot.forEach((doc) => {
         //* usamos neste caso o foreach para percorrer todo o array
@@ -50,24 +69,25 @@ export function Dashboard() {
           city: doc.data()?.city,
           km: doc.data()?.km,
           image: doc.data()?.images,
+          cambio: doc.data()?.cambio,
         });
       });
 
-      setCars(listCars); //* enviando para usestate
+      setCars(listCars); //* enviando para useState
     });
   }
 
   async function handleDeleteCar(id: string) {
     //*esperamos receber algo que era o id do item
-    const docRef = doc(db, "cars", id); //* armazenado dentr do dodRef o documento que vem do id direto do db no firebase
+    const docRef = doc(db, "cars", id); //* armazenado dentro do dodRef o documento que vem do id direto do db no firebase
     await deleteDoc(docRef); //* uma promise e o deleteDoc usa o que foi armazenado no docRed para apagar o db no firebase o item clicado
-    setCars(cars.filter((car) => car.id !== id)); //* usamos o filter para percorrer o array de cars e separar o que for diferente e exlcuir da tela. Nesta operação o filter retorna para o State todos os items que são iguai (car.id for igual ao id) e o que for diferente é exlcuir da tela
+    setCars(cars.filter((car) => car.id !== id)); //* usamos o filter para percorrer o array de cars e separar o que for diferente e excluir da tela. Nesta operação o filter retorna para o State todos os items que são iguais (car.id for igual ao id) e o que for diferente é excluir da tela
     toast.success("Carro deletado com sucesso!");
     console.log(id);
   }
 
   function handleImageLoad(id: string) {
-    setLoadingImages([...loadingImages, id]); //* para evitar o delay na tela na hora da exibição da imagem nos usamos uma state e estã função que recebe tudo o que há dentro da usaState e mais o id que é enviando pelo style da img
+    setLoadingImages([...loadingImages, id]); //* para evitar o delay na tela na hora da exibição da imagem nos usamos uma state e estão função que recebe tudo o que há dentro da usaState e mais o id que é enviando pelo style da img
   }
 
   return (
@@ -81,7 +101,7 @@ export function Dashboard() {
               className="w-full bg-white rounded-lg relative"
             >
               <button
-                onClick={() => handleDeleteCar(car.id)} //*função para deletar item dá mesma maneira que usamos o id para encontrar todos os itens do objeto carro tambem usamos para buscar todo o item e apagalo do banco e da tela
+                onClick={() => handleDeleteCar(car.id)} //*função para deletar item dá mesma maneira que usamos o id para encontrar todos os itens do objeto carro tambem usamos para buscar todo o item e apagado do banco e da tela
                 className="absolute bg-white w-14 h-14 rounded-full flex items-center justify-center right-2 top-2 drop-shadow "
               >
                 <FiTrash2 size={26} color="#000" />
@@ -89,7 +109,7 @@ export function Dashboard() {
               <div
                 className="w-full h-72 rounded-lg bg-slate-200"
                 style={{
-                  display: loadingImages.includes(car.id) ? "none" : "block", //* usamos o .includes para verificar se ha incluso na state o car.id e se sim então a image recebe um display none caso não então é o block... Em caso de none ele mostra na dela a div com os parametros da classnama dela
+                  display: loadingImages.includes(car.id) ? "none" : "block", //* usamos o .includes para verificar se ha incluso na state o car.id e se sim então a image recebe um display none caso não então é o block... Em caso de none ele mostra na dela a div com os parametros da class name dela
                 }}
               ></div>
               <img
@@ -104,8 +124,9 @@ export function Dashboard() {
               <p className="font-bold mb-2 mt-1 px-2">{car.name}</p>
               <div className="flex flex-col px-2">
                 <span className="text-zinc-700 mb-6">
-                  Ano {car.year} | {car.km}
+                  Ano {car.year} | {car.km} {car.cambio}
                 </span>
+
                 <strong className="text-black font-medium text-xl">
                   R${" "}
                   {car.price.toLocaleString("pt-BR", {

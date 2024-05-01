@@ -32,6 +32,7 @@ const schema = z.object({
   km: z.string().nonempty("O KM do carro é obrigatório"),
   price: z.string().nonempty("O preço é obrigatório"),
   city: z.string().nonempty("A cidade é obrigatória"),
+  cambio: z.string().nonempty("O tipo cambio é obrigatório"),
   whatsapp: z
     .string()
     .min(1, "O Telefone é obrigatório")
@@ -101,10 +102,10 @@ export function New() {
 
     //* ----------------------------------------------------------------
 
-    //* Depois do if acima que as operaões abaixo são iniciadas, ou seja, primeiro tem que ser feita a verficação da condicional
+    //* Depois do if acima que as operações abaixo são iniciadas, ou seja, primeiro tem que ser feita a verificação da condicional
 
     const carListImages = carImage.map((car) => {
-      //* Const carListImages: Foi criada para descontruir os dados das imagens e so receber o uid, name e url e não o previewUrl. A const recebe o useState e faz utilização no map para percorrer tudo e fazer a desconstrução
+      //* Const carListImages: Foi criada para desconstruir os dados das imagens e so receber o uid, name e url e não o previewUrl. A const recebe o useState e faz utilização no map para percorrer tudo e fazer a desconstrução
       return {
         uid: car.uid,
         name: car.name,
@@ -121,6 +122,7 @@ export function New() {
       city: data.city,
       whatsapp: data.whatsapp,
       description: data.description,
+      cambio: data.cambio,
       createdAt: new Date(),
       owner: user?.name,
       uid: user?.uid,
@@ -202,7 +204,7 @@ Em resumo, este trecho de código adiciona um novo documento à coleção "cars"
 
         @Upload @da @Imagem
         //*Realiza o upload dos bytes da imagem para o Firebase Storage na localização especificada.
-        //*Ou seja, usa a const uploadRef que contém o local para onde as imgens devem ir e depois da vígula o arquivo que será enviado para este local. 
+        //*Ou seja, usa a const uploadRef que contém o local para onde as imagens devem ir e depois da vírgula o arquivo que será enviado para este local. 
 
         @Obtenção @da @URL @de @Download
         //* snapshot.ref: snapshot é o objeto retornado após o upload do arquivo para o armazenamento. A propriedade ref contém uma referência ao local onde o arquivo foi armazenado.
@@ -258,7 +260,7 @@ Em resumo, este trecho de código adiciona um novo documento à coleção "cars"
         - O caminho resultante é armazenado na variável `imagePath`.
 
         @Referência @ao @Objeto @de @Imagem @no @Armazenamento
-        - Utilizando a função `ref` do Firebase Storage, é criada uma referência ao objeto de imagem no armazenamento, usando o caminho da imagem calculado anteriormente. Storafe é onde as imagens estão sendo armazenadas.
+        - Utilizando a função `ref` do Firebase Storage, é criada uma referência ao objeto de imagem no armazenamento, usando o caminho da imagem calculado anteriormente. Storage é onde as imagens estão sendo armazenadas.
         - Essa referência é armazenada na variável `imageRef`.
 
         @Tentativa @de @Deleção @da @Imagem
@@ -266,7 +268,7 @@ Em resumo, este trecho de código adiciona um novo documento à coleção "cars"
         - Como essa é uma operação assíncrona, utilizamos `await` para aguardar a conclusão da operação antes de prosseguir.
 
         @Atualização @do @Estado @e @Feedback @ao @Usuário
-        - Se a deleção for bem-sucedida, ou seja, se a imgem for deletada,  o estado `carImage` é atualizado filtrando o array para remover o item deletado.
+        - Se a deleção for bem-sucedida, ou seja, se a imagem for deletada,  o estado `carImage` é atualizado filtrando o array para remover o item deletado.
         - Um feedback de sucesso é exibido ao usuário utilizando uma notificação ou toast, indicando que a imagem foi deletada com sucesso.
         - Se ocorrer algum erro durante o processo de deleção, ele será capturado pelo bloco `catch` e impresso no console para fins de depuração.
      */
@@ -401,15 +403,27 @@ Em resumo, este trecho de código adiciona um novo documento à coleção "cars"
                 />
               </div>
             </div>
-            <div className="mb-3">
-              <p className="mb-2 font-medium">Valor do Veículo</p>
-              <Input
-                type="text"
-                register={register}
-                name="price"
-                error={errors.price?.message}
-                placeholder="EX: R$ 54.000"
-              />
+            <div className="flex w-ful mb-3 flex-row items-center gap-4">
+              <div className="w-full">
+                <p className="mb-2 font-medium">Valor do Veículo</p>
+                <Input
+                  type="text"
+                  register={register}
+                  name="price"
+                  error={errors.price?.message}
+                  placeholder="EX: R$ 54.000"
+                />
+              </div>
+              <div className="w-full">
+                <p className="mb-2 font-medium">Câmbio</p>
+                <Input
+                  type="text"
+                  register={register}
+                  name="cambio"
+                  error={errors.cambio?.message}
+                  placeholder=" EX: Automático"
+                />
+              </div>
             </div>
             <div className="mb-3">
               <p className="mb-2 font-medium">Descrição</p>

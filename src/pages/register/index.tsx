@@ -107,8 +107,7 @@ export function Register() {
           <Link to={"/"} className="mb-6 max-w-sm w-full">
             {" "}
             {/* Link para a página inicial*/}
-            <img src={Logo} alt="logo do site" className="w-full" /> // Exibe o
-            logo do site
+            <img src={Logo} alt="logo do site" className="w-full" /> /
           </Link>
 
           <form
