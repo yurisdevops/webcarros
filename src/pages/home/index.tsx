@@ -15,7 +15,10 @@ export interface CarsProps {
   city: string;
   km: string;
   image: CarImageProps[];
-  cambio: string;
+  fuel: string;
+  transmission: string;
+  color: string;
+  plate: string;
 }
 
 export interface CarImageProps {
@@ -98,7 +101,10 @@ export function Home() {
           city: doc.data().city,
           km: doc.data().km,
           image: doc.data().images,
-          cambio: doc.data().cambio,
+          transmission: doc.data().transmission,
+          fuel: doc.data().fuel,
+          color: doc.data().color,
+          plate: doc.data().plate,
         });
       });
 
@@ -191,7 +197,10 @@ export function Home() {
         city: doc.data().city,
         km: doc.data().km,
         image: doc.data().images,
-        cambio: doc.data().cambio,
+        transmission: doc.data().transmission,
+        fuel: doc.data().fuel,
+        color: doc.data().color,
+        plate: doc.data().plate,
       });
     });
     setCars(listCars);
@@ -253,20 +262,18 @@ export function Home() {
                     }}
                   />
                 </Link>
-                <p className="font-bold mb-2 mt-1 px-2">{car.name}</p>
-                <div className="flex flex-col px-2">
-                  <span className="text-zinc-700 mb-2">
-                    Ano {car.year} | {car.km}
-                  </span>
-                  <span className="mb-4 text-zinc-700">
-                    {car.cambio}
-                  </span>
-                  <strong className="text-black font-medium text-xl">
+                <p className="font-bold mb-2 mt-1 px-2 text-xl">{car.name}</p>
+                <div className="flex flex-col px-2 text-xs">
+                  <span className="text-zinc-700 mb-2">{car.model}</span>
+                  <strong className="text-black font-medium text-xl mb-2">
                     {car.price.toLocaleString("pt-BR", {
                       style: "currency",
                       currency: "BRL",
                     })}
                   </strong>
+                  <span className="text-zinc-700 mb-2">
+                    {car.year} | {car.km} Km
+                  </span>
                 </div>
                 <div className="w-full bg-slate-200 h-px my-2"></div>
                 <div className="px-2 mb-2">

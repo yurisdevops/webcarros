@@ -23,6 +23,10 @@ interface CarProps {
   uid: string;
   whatsapp: string;
   images: ImagesCarProps[];
+  fuel: string;
+  transmission: string;
+  color: string;
+  plate: string;
 }
 
 interface ImagesCarProps {
@@ -71,6 +75,10 @@ export function CarDetail() {
         km: snapshot.data()?.km,
         owner: snapshot.data()?.owner,
         images: snapshot.data()?.images,
+        transmission: snapshot.data()?.transmission,
+        fuel: snapshot.data()?.fuel,
+        color: snapshot.data()?.color,
+        plate: snapshot.data()?.plate,
       });
     });
   }
@@ -128,24 +136,40 @@ export function CarDetail() {
                 {car?.name}
               </h1>
               <h1 className="font-bold sm:text-3xl text-black text-lg">
-                R$ {car?.price}{" "}
+                {car?.price}{" "}
               </h1>
             </div>
-            <div className="flex gap-6 mb-4">
+            <div className="flex flex-col gap-8 mb-4">
               <div>
-                <div className="mb-2">
-                  <p>Ano</p>
-                  <strong>{car?.year} </strong>
-                </div>
+                <p className="text-zinc-500">Cidade</p>
+                <strong>{car?.city}</strong>
+              </div>
+              <div className="flex flex-row gap-8">
                 <div>
-                  <p>Cidade</p>
-                  <strong>{car?.city}</strong>
+                  <p className="text-zinc-500">Ano</p>
+                  <strong>{car?.year}</strong>
+                </div>
+                <div className="mb-2">
+                  <p className="text-zinc-500">KM</p>
+                  <strong>{car?.km} </strong>
+                </div>
+                <div className="mb-2">
+                  <p className="text-zinc-500">Câmbio</p>
+                  <strong>{car?.transmission} </strong>
                 </div>
               </div>
-              <div>
+              <div className="flex flex-row gap-4">
                 <div>
-                  <p>KM</p>
-                  <strong>{car?.km} </strong>
+                  <p className="text-zinc-500">Combustível</p>
+                  <strong>{car?.fuel}</strong>
+                </div>
+                <div className="mb-2">
+                  <p className="text-zinc-500">Final da Placa</p>
+                  <strong>{car?.plate} </strong>
+                </div>
+                <div className="mb-2">
+                  <p className="text-zinc-500">Cor</p>
+                  <strong>{car?.color} </strong>
                 </div>
               </div>
             </div>

@@ -27,12 +27,15 @@ import toast from "react-hot-toast";
 const schema = z.object({
   //* Nesta const schema: Aqui é feita a validação e aqui usamos o objeto z de zod para fazer a validação.
   name: z.string().nonempty("O campo nome é obrigatório"),
-  model: z.string().nonempty("O modelo é obrigatório"),
-  year: z.string().nonempty("O Ano do carro é obrigatório"),
-  km: z.string().nonempty("O KM do carro é obrigatório"),
-  price: z.string().nonempty("O preço é obrigatório"),
-  city: z.string().nonempty("A cidade é obrigatória"),
-  cambio: z.string().nonempty("O tipo cambio é obrigatório"),
+  model: z.string().nonempty("O campo modelo é obrigatório"),
+  year: z.string().nonempty("O campo ano do carro é obrigatório"),
+  km: z.string().nonempty("O campo km do carro é obrigatório"),
+  price: z.string().nonempty("O campo preço é obrigatório"),
+  city: z.string().nonempty("O campo cidade é obrigatório"),
+  transmission: z.string().nonempty("O campo tipo cambio é obrigatório"),
+  fuel: z.string().nonempty("O campo tipo de combustível é obrigatório"),
+  plate: z.string().nonempty("O campo final da placa é obrigatório"),
+  color: z.string().nonempty("O campo cor é obrigatório"),
   whatsapp: z
     .string()
     .min(1, "O Telefone é obrigatório")
@@ -122,7 +125,10 @@ export function New() {
       city: data.city,
       whatsapp: data.whatsapp,
       description: data.description,
-      cambio: data.cambio,
+      transmission: data.transmission,
+      fuel: data.fuel,
+      color: data.color,
+      plate: data.plate,
       createdAt: new Date(),
       owner: user?.name,
       uid: user?.uid,
@@ -383,7 +389,51 @@ Em resumo, este trecho de código adiciona um novo documento à coleção "cars"
             </div>
             <div className="flex w-ful mb-3 flex-row items-center gap-4">
               <div className="w-full">
-                <p className="mb-2 font-medium">Telefone / Whatsapp</p>
+                <p className="mb-2 font-medium">Combustível</p>
+                <Input
+                  type="text"
+                  register={register}
+                  name="fuel"
+                  error={errors.fuel?.message}
+                  placeholder="EX: Gasolina"
+                />
+              </div>
+              <div className="w-full">
+                <p className="mb-2 font-medium">Câmbio</p>
+                <Input
+                  type="text"
+                  register={register}
+                  name="transmission"
+                  error={errors.transmission?.message}
+                  placeholder=" EX: Automático"
+                />
+              </div>
+            </div>
+            <div className="flex w-ful mb-3 flex-row items-center gap-4">
+              <div className="w-full">
+                <p className="mb-2 font-medium">Final da Placa</p>
+                <Input
+                  type="text"
+                  register={register}
+                  name="plate"
+                  error={errors.plate?.message}
+                  placeholder=" EX: 5"
+                />
+              </div>
+              <div className="w-full">
+                <p className="mb-2 font-medium">Cor</p>
+                <Input
+                  type="text"
+                  register={register}
+                  name="color"
+                  error={errors.color?.message}
+                  placeholder=" EX: Grafite "
+                />
+              </div>
+            </div>
+            <div className="flex w-ful mb-3 flex-row items-center gap-4">
+              <div className="w-full">
+                <p className="mb-2 font-medium">Whatsapp</p>
                 <Input
                   type="text"
                   register={register}
@@ -403,27 +453,15 @@ Em resumo, este trecho de código adiciona um novo documento à coleção "cars"
                 />
               </div>
             </div>
-            <div className="flex w-ful mb-3 flex-row items-center gap-4">
-              <div className="w-full">
-                <p className="mb-2 font-medium">Valor do Veículo</p>
-                <Input
-                  type="text"
-                  register={register}
-                  name="price"
-                  error={errors.price?.message}
-                  placeholder="EX: R$ 54.000"
-                />
-              </div>
-              <div className="w-full">
-                <p className="mb-2 font-medium">Câmbio</p>
-                <Input
-                  type="text"
-                  register={register}
-                  name="cambio"
-                  error={errors.cambio?.message}
-                  placeholder=" EX: Automático"
-                />
-              </div>
+            <div className="w-full max-w-[604px]">
+              <p className="mb-2 font-medium">Valor</p>
+              <Input
+                type="text"
+                register={register}
+                name="price"
+                error={errors.price?.message}
+                placeholder=" EX: R$ 24.900"
+              />
             </div>
             <div className="mb-3">
               <p className="mb-2 font-medium">Descrição</p>

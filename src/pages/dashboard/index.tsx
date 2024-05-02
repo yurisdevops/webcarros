@@ -25,7 +25,10 @@ export interface CarsProps {
   city: string;
   km: string;
   image: CarImageProps[];
-  cambio: string;
+  fuel: string;
+  transmission: string;
+  color: string;
+  plate: string;
 }
 
 interface CarImageProps {
@@ -69,7 +72,11 @@ export function Dashboard() {
           city: doc.data()?.city,
           km: doc.data()?.km,
           image: doc.data()?.images,
-          cambio: doc.data()?.cambio,
+
+          fuel: doc.data()?.fuel,
+          transmission: doc.data()?.transmission,
+          color: doc.data()?.color,
+          plate: doc.data()?.plate,
         });
       });
 
@@ -121,24 +128,24 @@ export function Dashboard() {
                   display: loadingImages.includes(car.id) ? "block" : "none", //* usamos o .includes para verificar se ha incluso na state o car.id e se sim então a image recebe um display block caso não então é o none
                 }}
               />
-              <p className="font-bold mb-2 mt-1 px-2">{car.name}</p>
-              <div className="flex flex-col px-2">
+              <p className="font-bold mb-2 mt-1 px-4">{car.name}</p>{" "}
+              <div className="flex flex-col px-4 ">
                 <span className="text-zinc-700 mb-6">
-                  Ano {car.year} | {car.km} {car.cambio}
+                  Ano {car.year} | {car.km}
                 </span>
 
                 <strong className="text-black font-medium text-xl">
-                  R${" "}
+                  {" "}
                   {car.price.toLocaleString("pt-BR", {
                     style: "currency",
                     currency: "BRL",
                   })}
+                  <div className="mb-2">
+                    <span className="text-zinc-700">{car.city}</span>
+                  </div>
                 </strong>
               </div>
               <div className="w-full bg-slate-200 h-px my-2"></div>
-              <div className="px-2 mb-2">
-                <span className="text-zinc-700">{car.city}</span>
-              </div>
             </section>
           ))}
         </main>
