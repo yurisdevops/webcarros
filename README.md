@@ -1,30 +1,38 @@
-# React + TypeScript + Vite
+# 🚗 WebCarros  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**WebCarros** é uma aplicação web que simula um site de compra e venda de automóveis, inspirado na plataforma Webmotors. O projeto foi desenvolvido para fornecer uma experiência intuitiva e eficiente para usuários que desejam comprar ou vender veículos.  
 
-Currently, two official plugins are available:
+## 📋 Descrição  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+O WebCarros permite que os usuários naveguem por uma variedade de veículos disponíveis, filtrem suas buscas com base em diferentes critérios e visualizem detalhes dos veículos. A aplicação oferece uma interface amigável e funcionalidades que facilitam a experiência de compra.  
 
-## Expanding the ESLint configuration
+## ⚙️ Tecnologias Utilizadas  
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Frontend**:   
+  - [React](https://reactjs.org/): Biblioteca JavaScript para construção de interfaces de usuário.  
+  - [Vite](https://vitejs.dev/): Ferramenta de build que otimiza o desenvolvimento e o tempo de carregamento.  
+  - [TypeScript](https://www.typescriptlang.org/): Superconjunto do JavaScript que adiciona tipagem estática.  
+  
+- **Validação de Dados**:   
+  - [Zod](https://zod.dev/): Biblioteca para validação de esquemas de dados.  
 
-- Configure the top-level `parserOptions` property like this:
+- **Backend**:   
+  - [Firebase](https://firebase.google.com/): Plataforma de desenvolvimento que oferece autenticação e armazenamento de dados em tempo real.  
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- **Notificações**:   
+  - [React Toastify](https://github.com/fkhadra/react-toastify): Biblioteca para exibir notificações de forma simples e eficiente.  
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## 🚀 Funcionalidades  
+
+- Navegação fácil entre categorias de veículos.  
+- Sistema de autenticação de usuários utilizando Firebase.  
+- Filtragem de veículos com base em critérios como marca, modelo e ano.  
+- Notificações automatizadas para ações como adição de veículos, vendas e atualizações.  
+
+## 📦 Instalação  
+
+Para instalar e executar o projeto localmente, siga os passos abaixo:  
+
+1. **Clone o repositório**:  
+   ```bash  
+   git clone https://github.com/seuusuario/WebCarros.git
