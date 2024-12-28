@@ -115,7 +115,7 @@ Acesse a aplicação no navegador: `http://localhost:5173`.
 
 ## Contato
 
-Desenvolvido por [Yuri Souza](https://github.com/yuridevops). Entre em contato para dúvidas ou sugestões!
+Desenvolvido por [Yuri Souza](https://github.com/yurisdevops). Entre em contato para dúvidas ou sugestões!
 
 ---
 
